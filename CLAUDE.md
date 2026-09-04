@@ -1,16 +1,20 @@
-# chortle
+chortle - Household Chores Tracker
 
-Household Chores Tracker. See `_docs/plan.md` for scope/decisions and `_docs/backlog.md` for the implementation backlog.
+Documents
+- `_docs/process.md` - how work is organized
+- `_docs/plan.md` - scope/decisions 
+- `_docs/backlog.md` - implementation backlog.
 
-## Rules for agents working on this repo
-
-- **Every behavior change must be covered by tests.** New models, views, forms, template logic, and pure functions (e.g. recurrence-date calculations) all need corresponding tests before the work is considered done — not just for milestones explicitly labeled "with unit tests" in the backlog.
+Rules
+- Dependencies are added in `pyproject.toml`. Do not add one without asking.
+- Use `uv` for all dependency and environment management.
+- Configuration comes from the environment. A new setting means a new env var and line in `.env.example`, never a hardcoded value or a checked-in secret.
+- Every behavior change must be covered by tests
 - Run `uv run pytest` before considering a change complete. All tests must pass.
 - Tests live alongside the code they cover (e.g. `core/tests.py`, or a `core/tests/` package if it grows). Use `pytest-django` style (`@pytest.mark.django_db`) rather than `django.test.TestCase` unless there's a specific reason to prefer the latter.
-- Use `uv` for all dependency and environment management (`uv add`, `uv run ...`) — don't install packages into a bare venv or edit `requirements.txt` (removed in favor of `pyproject.toml` + `uv.lock`).
+- GitHub issue titles do not repeat the issue number. GitHub already shows it.
 
-## Environment
-
+Commands
 - Run the dev server: `uv run python manage.py runserver`
 - Run tests: `uv run pytest`
 - Run migrations: `uv run python manage.py migrate`
