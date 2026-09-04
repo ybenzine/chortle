@@ -1,3 +1,8 @@
-from django.test import TestCase
+import pytest
 
-# Create your tests here.
+
+@pytest.mark.django_db
+def test_django_settings_are_loaded():
+    from django.conf import settings
+
+    assert "core" in settings.INSTALLED_APPS
