@@ -31,14 +31,14 @@ Pure tracking: who did what, and when. No points, streaks, leaderboards, or fair
 In-app only — a "due today / overdue" view. No push notifications and no email.
 
 **Data**
-Stored locally on a single device (browser storage). No accounts, no multi-device sync, no backend.
+Stored server-side in a Django-backed database (SQLite via the ORM), served to the single shared household device. No accounts, no multi-device sync — just one app instance the household accesses.
 
 ## Out of Scope
 
 Deliberately excluded to keep the tool simple:
 
 - User accounts or login
-- Multi-device sync or a hosted/shared backend
+- Multi-device sync or a hosted/shared backend serving multiple independent households
 - Verification, dispute, or proof of completion
 - Gamification (points, streaks, leaderboards)
 - Fairness balancing or workload flags
@@ -46,4 +46,4 @@ Deliberately excluded to keep the tool simple:
 
 ## Note on the Usage Model
 
-Because the data lives locally on one device but anyone can edit, in practice the household shares a single device or browser to run the tool — for example, a tablet mounted on the fridge or a shared family laptop. This is intentional and consistent with the choices above.
+Even though data now lives in a server-side database rather than the browser, the tool is still built for one fixed household with no accounts — anyone can add or edit chores and members. In practice the household shares a single device or browser to run the tool — for example, a tablet mounted on the fridge or a shared family laptop. This is intentional and consistent with the choices above.
