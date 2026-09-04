@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Members</title>
+</head>
+<body>
+  <h1>Members</h1>
+
+  {% if messages %}
+    <ul>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  <p><a href="{% url 'core:member-add' %}">Add member</a></p>
+
+  {% if members %}
+    <ul>
+      {% for member in members %}
+        <li>
+          {{ member.name }}
+          <a href="{% url 'core:member-edit' member.pk %}">Edit</a>
+          <a href="{% url 'core:member-delete' member.pk %}">Delete</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No members yet — add one to get started.</p>
+  {% endif %}
+</body>
+</html>

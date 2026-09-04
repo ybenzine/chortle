@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Delete {{ member.name }}</title>
+</head>
+<body>
+  <h1>Delete "{{ member.name }}"?</h1>
+
+  {% if affected_chores or completions_count %}
+    <p>"{{ member.name }}" is linked to existing chores or completion history. Deleting them will:</p>
+    <ul>
+      <li>
+        Clear "{{ member.name }}" as the fixed assignee, "up next" rotation member, or
+        current claim holder on any chore where they hold that role — those chores become unassigned.
+      </li>
+      <li>
+        Remove "{{ member.name }}" from any chore's rotation cycle — their rotation slot(s) are deleted.
+      </li>
+      {% if completions_count %}
+        <li>
+          Delete "{{ member.name }}"'s completion history
+          ({{ completions_count }} record{{ completions_count|pluralize }}).
+        </li>
+      {% endif %}
+    </ul>
+
+    {% if affected_chores %}
+      <p>Affected chores:</p>
+      <ul>
+        {% for chore in affected_chores %}
+          <li>{{ chore.name }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% else %}
+    <p>"{{ member.name }}" has no related chores or completion history.</p>
+  {% endif %}
+
+  <form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, delete "{{ member.name }}"</button>
+  </form>
+
+  <p><a href="{% url 'core:member-list' %}">Cancel</a></p>
+</body>
+</html>
