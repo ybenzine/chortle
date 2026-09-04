@@ -4,11 +4,11 @@ Small, sequential tasks for building the tool described in `plan.md` on Django, 
 
 ## Milestone 1 — Data model
 
-- [ ] **1.1** `Member` model: name.
-- [ ] **1.2** `Chore` model: name, assignment type (`fixed` / `rotating` / `claimable`), recurrence rule (e.g. interval-in-days + optional weekday, enough to express "every 3 days" and "every other Monday"), last-done date, next-due date.
-- [ ] **1.3** Assignment fields/relations on `Chore`: fixed assignee (FK to `Member`, nullable), rotation order (ordered list/M2M of `Member` for rotating chores), current claim (FK to `Member`, nullable, for claimable chores).
-- [ ] **1.4** `Completion` model: FK to `Chore`, FK to `Member`, timestamp — the append-only log of who did what and when.
-- [ ] **1.5** Migrations for all of the above; register models in `core/admin.py` for inspection during development.
+- [x] **1.1** `Member` model: name.
+- [x] **1.2** `Chore` model: name, assignment type (`fixed` / `rotating` / `claimable`), recurrence rule (e.g. interval-in-days + optional weekday, enough to express "every 3 days" and "every other Monday"), last-done date, next-due date.
+- [x] **1.3** Assignment fields/relations on `Chore`: fixed assignee (FK to `Member`, nullable), rotation order (ordered list/M2M of `Member` for rotating chores), current claim (FK to `Member`, nullable, for claimable chores).
+- [x] **1.4** `Completion` model: FK to `Chore`, FK to `Member`, timestamp — the append-only log of who did what and when.
+- [x] **1.5** Migrations for all of the above; register models in `core/admin.py` for inspection during development.
 
 ## Milestone 2 — Members & Chores CRUD
 
