@@ -17,28 +17,45 @@ Small, sequential tasks for building the tool described in `plan.md` on Django, 
 - [ ] **2.3** Form validation: a chore's assignment fields match its type (e.g. rotating chores need a rotation order with at least one member).
 - [ ] **2.4** Pure function (with unit tests) to compute the next due date from a recurrence rule + last-done date.
 
+  Test scenarios: interval-only recurrence (e.g. "every 3 days" from a given last-done date); interval+weekday recurrence (e.g. "every other Monday", including when last-done isn't itself a Monday); first-ever due date when `last_done` is `None`; interval=1 (daily).
+
 ## Milestone 3 — Assignment logic
 
 - [ ] **3.1** Fixed assignment: chore detail/list always displays its fixed assignee.
 - [ ] **3.2** Rotating assignment: on completion, advance a stored pointer/index so the next occurrence is assigned to the next member in rotation order.
-- [ ] **3.3** Claimable assignment: "claim" action sets the current claimant; chore shows as unclaimed/in the shared pool until claimed.
+
+  Test scenarios: advancing moves to the next slot in order; advancing from the *last* slot wraps around to the first.
+
+- [ ] **3.3** Claimable assignment: "claim" action sets the current claimant; chore shows as unclaimed/in the shared pool until claimed. On completion, the claim resets to unclaimed so the next occurrence returns to the shared pool.
+
+  Test scenarios: starts unclaimed; claiming sets the claimant; completing a claimed chore resets `current_claim` to `None`.
 
 ## Milestone 4 — Completion & tracking
 
 - [ ] **4.1** "Mark done" view: creates a `Completion` record (chore, member, now), updates the chore's `last_done`/`next_due`, and (for rotating chores) advances rotation.
+
+  Test scenarios: exactly one `Completion` is created; `last_done`/`next_due` update correctly; for a rotating chore, rotation advances in the same action (not just recurrence math in isolation).
+
 - [ ] **4.2** History view: paginated, reverse-chronological list of `Completion` records, read-only.
+
+  Test scenarios: ordering is newest-first; pagination boundary (e.g. exactly one page's worth vs. one more than fits).
 
 ## Milestone 5 — Due/overdue view
 
 - [ ] **5.1** "Today" view: query chores due today, grouped by assignee.
 - [ ] **5.2** Overdue view/section: query chores past due, ordered by days overdue.
+
+  Test scenarios: a chore due today appears in "today", not "overdue" (boundary: due-today is not counted as overdue); a chore due yesterday is overdue, one due tomorrow is neither; overdue sort order by days-overdue.
+
 - [ ] **5.3** Empty/all-caught-up state when nothing is due or overdue.
 
 ## Milestone 6 — Polish & resilience
 
 - [ ] **6.1** First-run/empty state when no members or chores exist yet, with a simple setup prompt.
 - [ ] **6.2** Basic responsive styling suitable for a fridge-mounted tablet (large tap targets, readable at a glance).
-- [ ] **6.3** Seed/fixture data or a management command for quickly populating a demo household during development and grading.
+- [ ] **6.3** Seed/fixture data or a management command for quickly populating a demo household during development and grading. Must be idempotent — safe to re-run without erroring or duplicating data (e.g. via `get_or_create`).
+
+  Test scenarios: running it produces the expected members/chores; running it a second time doesn't error or duplicate rows.
 
 ## Explicitly deferred (out of scope per plan.md)
 
